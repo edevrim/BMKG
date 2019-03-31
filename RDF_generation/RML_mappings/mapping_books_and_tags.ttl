@@ -1,0 +1,67 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@base <https://www.goodreads.com/book/show/> .
+
+<TriplesMapBooks>
+  a rr:TriplesMap;
+
+  # Define the data source (file location)
+  rml:logicalSource [
+    rml:source "//Users/salihemredevrim/Desktop/data/books_last.csv";
+    rml:referenceFormulation ql:CSV
+  ];
+
+  # Define the subject of the generated statements
+  rr:subjectMap [ rr:template "https://www.goodreads.com/book/show/{goodreads_book_id}" ;
+    rr:class dbo:Book];
+
+  # Define the object of the title
+  rr:predicateObjectMap [ 
+    rr:predicate dbo:title;
+    rr:objectMap [ rml:reference "title"]
+  ] ;
+
+  # Define the object of the  author
+  rr:predicateObjectMap [ 
+    rr:predicate dbo:author ;
+    rr:objectMap [ rml:reference "authors"]
+  ] ;
+
+  # Define the object of the publication year
+  rr:predicateObjectMap [ 
+    rr:predicate dbo:firstPublicationYear ;
+    rr:objectMap [ rml:reference "original_publication_year"]
+  ] ;
+
+  # Define the object of the language code
+  rr:predicateObjectMap [ 
+    rr:predicate dbo:Language ;
+    rr:objectMap [ rml:reference "language_code"]
+  ] ;
+
+.
+
+<TriplesMapTags>
+  a rr:TriplesMap;
+
+  # Define the data source (file location)
+  rml:logicalSource [
+    rml:source "//Users/salihemredevrim/Desktop/data/book_tags_last.csv";
+    rml:referenceFormulation ql:CSV
+  ];
+
+  # Define the subject of the generated statements
+  rr:subjectMap [ rr:template "https://www.goodreads.com/book/show/{goodreads_book_id}"];
+
+  # Define the object of the tags
+  rr:predicateObjectMap [ 
+    rr:predicate dbo:tag ;
+    rr:objectMap [ rml:reference "tag_name"]
+  ] ;
+
+.
