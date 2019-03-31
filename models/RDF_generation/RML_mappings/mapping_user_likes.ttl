@@ -1,0 +1,28 @@
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rml: <http://semweb.mmlab.be/ns/rml#> .
+@prefix ql: <http://semweb.mmlab.be/ns/ql#> .
+@base <https://www.goodreads.com/user/show/> .
+
+<TriplesMapBooks>
+  a rr:TriplesMap;
+
+  # Define the data source (file location)
+  rml:logicalSource [
+    rml:source "//Users/salihemredevrim/Desktop/data/user_rates_training.csv";
+    rml:referenceFormulation ql:CSV
+  ];
+
+  # Define the subject of the generated statements
+  rr:subjectMap [ rr:template "https://www.goodreads.com/user/show/{user_id}"];
+
+  # Define the object of the tags
+  rr:predicateObjectMap [ 
+    rr:predicate dbo:tag ;
+    rr:objectMap [ rr:template "https://www.goodreads.com/book/show/{goodreads_book_id}"]
+  ] ;
+
+.
